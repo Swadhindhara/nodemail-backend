@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
@@ -14,14 +16,28 @@ app.get('/', (req, res) =>{
 })
 // POST /contact route
 app.post("/contact", async (req, res) => {
-  const { name, email, phone, message } = req.body;
+  const { name, email, number, loanRequired, pincode, preferredDestination, preferredIntake, preferredProgram} = req.body;
 
   try {
+    const templatePath = path.join(__dirname, "templates", "index.html");
+    let htmlTemplate = fs.readFileSync(templatePath, "utf8");
+
+    // Replace placeholders globally
+    htmlTemplate = htmlTemplate
+      .replace(/{{name}}/g, name)
+      .replace(/{{email}}/g, email)
+      .replace(/{{number}}/g, number)
+      .replace(/{{loanRequired}}/g, loanRequired)
+      .replace(/{{pincode}}/g, pincode)
+      .replace(/{{preferredDestination}}/g, preferredDestination)
+      .replace(/{{preferredIntake}}/g, preferredIntake)
+      .replace(/{{preferredProgram}}/g, preferredProgram);
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.MAIL_USER, // your Gmail address
-        pass: process.env.MAIL_PASS, // your App password (not normal Gmail password)
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
       },
     });
 
@@ -29,13 +45,7 @@ app.post("/contact", async (req, res) => {
       from: email,
       to: process.env.MAIL_USER,
       subject: "New Contact Form Submission",
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Message:</strong> ${message}</p>
-      `,
+      html: htmlTemplate,
     };
 
     await transporter.sendMail(mailOptions);

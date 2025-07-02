@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>New Lead Submission</title>
+  </head>
+  <body style="margin: 0; padding: 20px; background-color: #f5f5f5; font-family: Arial, sans-serif;">
+    <div style="max-width: 600px; margin: auto; background-color: #fff8ec; border: 1px solid #eee; border-radius: 8px; padding: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+      <h2 style="color: #d32f2f; margin-top: 0;">🎓 New Student Lead Received</h2>
+      <p style="margin-bottom: 20px; font-size: 16px; color: #444;">
+        You have received a new lead via your website’s form.
+      </p>
+
+      <table style="width: 100%; font-size: 15px; color: #333; line-height: 1.7;">
+        <tr><td style="width: 180px;"><strong>Name:</strong></td><td>{{name}}</td></tr>
+        <tr><td><strong>Email:</strong></td><td><a href="mailto:{{email}}" style="color: #1a73e8; text-decoration: none;">{{email}}</a></td></tr>
+        <tr><td><strong>Phone:</strong></td><td>{{number}}</td></tr>
+        <tr><td><strong>Pincode:</strong></td><td>{{pincode}}</td></tr>
+        <tr><td><strong>Preferred Destination:</strong></td><td>{{preferredDestination}}</td></tr>
+        <tr><td><strong>Preferred Intake:</strong></td><td>{{preferredIntake}}</td></tr>
+        <tr><td><strong>Preferred Program:</strong></td><td>{{preferredProgram}}</td></tr>
+        <tr><td><strong>Loan Required:</strong></td><td>{{loanRequired}}</td></tr>
+      </table>
+
+      <hr style="margin: 30px 0; border: none; border-top: 1px solid #ccc;" />
+      <p style="font-size: 13px; color: #999; margin: 0;">
+        This message was sent from your website’s lead generation form.
+      </p>
+    </div>
+  </body>
+</html>
